@@ -1,0 +1,21 @@
+﻿
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+<form asp-controller="Ticket" asp-action="Index" method="Post" role="form">
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            @Html.DropDownList("prefixddl", ViewBag.PrefixList as SelectList, "-- အက္ခရာ ရွေးပါ --", new { @class = "form-control chosen-select-single" })
+        </div>
+        <div class="form-group col-md-3">
+            <input type="text" name="ticketno" class="form-control" placeholder="၁၂၃၄၅၆" />
+        </div>
+        <div class="form-group col-md-5">
+            <button type="submit" class="btn btn-primary">ရှာမည်</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".chosen-select-single").chosen();
+    });
+</script>

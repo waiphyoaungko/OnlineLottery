@@ -1,0 +1,41 @@
+﻿@model Ticket
+
+<div class="ad-listing-list mt-20">
+    <div class="row p-lg-3 p-sm-5 p-4">
+        <div class="col-lg-4 align-self-center">
+            <a href="#" class="lightbox">
+                <img src="@Model.ImageUrl" class="img-fluid" alt="" data-img="@Model.ImageUrl">
+            </a>
+        </div>
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-lg-12 col-md-10">
+                    <div class="ad-listing-content">
+                        <div>
+                            <a class="font-weight-bold">@_common.ConvertEToMNumber(@Model.OpenTime.ToString("N0")) ကြိမ်မြောက်</a>
+                        </div>
+                        <ul class="list-inline mt-2 mb-3">
+                            <li class="list-inline-item"><a> <i class="fas fa-ticket-alt"></i> (@Model.GroupSize)</a></li>
+                            <li class="list-inline-item"><a><i class="fas fa-money-bill-alt"></i> @_common.ConvertEToMNumber(@Model.Price.ToString("N0")) ကျပ် </a></li>
+                        </ul>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @if (Model.SubCategories.Count > 0)
+                                {
+                                    <p>
+                                        @String.Join("၊ ", Model.SubCategories.Select(p => p.TicketNo).ToArray())
+                                    </p>                                    
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 align-self-center">            
+            <a class="btn btn-info" asp-controller="ShoppingCart"
+               asp-action="AddToShoppingCart"
+               asp-route-ticketId="@Model.TicketId"><i class="fas fa-shopping-cart"></i> ဈေးခြင်းတောင်းထဲထည့်မည်</a>
+        </div>
+    </div>
+</div>

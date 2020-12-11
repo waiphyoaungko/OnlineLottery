@@ -1,0 +1,11 @@
+﻿@model IEnumerable<CategoryViewModel>
+
+<ul class="category-list">
+    <li><a asp-controller="Ticket" asp-action="Index">အားလုံး<span>@if (Model.ToList().Count > 0) {@Model.ToList()[0].TotalCount}</span></a></li>
+    @foreach(var category in Model)
+    {
+        <li>
+            <a asp-controller="Ticket" asp-action="Index" asp-route-ts="@category.GroupSize">@category.GroupSize <span>@category.Count</span></a>
+        </li>
+    }    
+</ul>

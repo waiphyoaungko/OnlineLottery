@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/Views/Shared/_CartLayout.cshtml";
+    var message = TempData["notice"] ?? string.Empty;
+}
+
+@model IEnumerable<OrderViewModel>
+
+
+<div class="shopping-cart section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Shopping Summery -->
+                @if (Model.ToList().Count > 0)
+                {
+                    <h4 class="header">အမှာစာရင်း : မှာယူထားသောထီလက်မှတ် စာရင်း</h4>
+                    <table class="table shopping-summery">
+                        <thead>
+                            <tr class="main-hading">
+                                <th>အမည်</th>
+                                <th>ဖုန်းနံပါတ်</th>
+                                <th class="text-center">မှာယူသည့်နေ့</th>
+                                <th class="text-center">အချက်အလက်</th>
+                                <th class="text-center">စုစုပေါင်း</th>
+                                <th class="text-center">အော်ဒါဖျက်သိမ်းမည်</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model)
+                            {
+                                <tr>
+                                    <td class="price" data-title="အမည်"><span>@order.OrderDetailList.ToList()[0].Order.Name</span></td>
+                                    <td class="price" data-title="ဖုန်းနံပါတ်"><span>@order.OrderDetailList.ToList()[0].Order.PhoneNumber</span></td>
+                                    <td class="price" data-title="မှာယူသည့်နေ့"><span>@order.OrderDetailList.ToList()[0].Order.OrderTime</span></td>
+                                    <td class="product-des" data-title="အချက်အလက်">
+                                        <p class="product-name">
+                                            @order.OrderDetailList.ToList()[0].Order.OrderDetails.ToList()[0].Ticket.OpenTime ကြိမ်မြောက် ၊
+                                            @order.OrderDetailList.ToList()[0].Order.OrderDetails.ToList()[0].Ticket.GroupSize
+                                        </p>
+                                        <p class="product-des">
+                                            @if (order.OrderDetailList.ToList()[0].Order.OrderDetails.Count > 0)
+                                            {
+                                                <table>
+                                                    @foreach (var od in order.OrderDetailList.ToList()[0].Order.OrderDetails)
+                                                    {
+                                                        <tr>
+                                                            <td>@od.Ticket.TicketGroupNo</td>
+                                                            <td>@od.Price</td>
+                                                        </tr>
+                                                    }
+                                                </table>
+                                            }
+                                        </p>
+                                    </td>
+                                    <td class="price" data-title="စုစုပေါင်း"><span>@order.OrderDetailList.ToList()[0].Order.OrderTotal</span></td>
+                                    <td class="action" data-title="အော်ဒါဖျက်သိမ်းမည်">
+                                        <a asp-controller="Order" asp-action="OrderCancel"
+                                           asp-route-orderId="@order.OrderDetailList.ToList()[0].Order.OrderId" class="btn btn-danger">အော်ဒါဖျက်သိမ်းမည်</a>
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <h4 class="header">ထီလက်မှတ် မှာယူထားခြင်းမရှိသေးပါ။</h4>
+                }
+                <!--/ End Shopping Summery -->
+            </div>
+        </div>
+    </div>
+</div>

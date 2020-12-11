@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "~/Views/Shared/_CartLayout.cshtml";
+    var message = TempData["notice"] ?? string.Empty;
+}
+
+@model ShoppingCartViewModel
+
+<script type="text/javascript" charset="utf-8">
+        var message = '@message'
+        if (message)
+            alert(message);
+</script>
+<!-- Shopping Cart -->
+<div class="shopping-cart section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Shopping Summery -->
+                <h4 class="header">စျေးခြင်းတောင်း : မိတ်ဆွေရွေးချယ်ထားသော ထီလက်မှတ်များ</h4>
+                <table class="table shopping-summery">
+                    <thead>
+                        <tr class="main-hading">
+                            <th>အမျိုးအစား</th>
+                            <th>အချက်အလက်</th>
+                            <th class="text-center">စျေးနှုန်း</th>
+                            <th class="text-center">အရေအတွက်</th>
+                            <th class="text-center">ဖျက်မည်</th>
+                            <th class="text-center"><i class="ti-trash remove-icon"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+                        {
+                            <tr>
+                                <td class="image" data-title="အမျိုးအစား"><img src="@item.Ticket.ImageUrl" alt="#"></td>
+                                <td class="product-des" data-title="အချက်အလက်">
+                                    <p class="product-name">@item.Ticket.OpenTime ကြိမ်မြောက်<br /> @item.Ticket.GroupSize</p>
+                                    <p class="product-des">
+                                        @if (item.Ticket.SubCategories.Count > 0)
+                                        {
+                                        <p>
+                                            @String.Join("၊ ", @item.Ticket.SubCategories.Select(p => p.TicketNo).ToArray())
+                                        </p>
+                                    }
+                                        </p>
+                                    </td>
+                                    <td class="price" data-title="စျေးနှုန်း"><span>@item.Ticket.Price.ToString("N0")</span></td>
+                                    <td class="qty" data-title="အရေအတွက်"><span>1</span></td>
+                                    <td class="action" data-title="ဖျက်မည်"><a asp-controller="ShoppingCart" asp-action="RemoveFromShoppingCart" asp-route-ticketId="@item.Ticket.TicketId"><i class="far fa-trash-alt"></i></a></td>
+                                </tr>
+                            }
+                    </tbody>
+                </table>
+                <!--/ End Shopping Summery -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Total Amount -->
+                <div class="total-amount">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-5 col-12">
+                            <div class="left">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-7 col-12">
+                            <div class="right">
+                                <ul>
+                                    <li class="last">စုစုပေါင်း<span>@Model.ShoppingCartTotal.ToString("N0")</span></li>
+                                </ul>
+                                <div class="button5">
+                                    <a asp-controller="Order" asp-action="Checkout" class="btn btn-success">အော်ဒါမှာမည်</a>
+                                    <a asp-controller="Ticket" asp-action="Index" class="btn btn-primary">ထပ်ဝယ်မည်</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ End Total Amount -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ End Shopping Cart -->
