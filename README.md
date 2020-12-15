@@ -1,3 +1,3 @@
 # Online Lottery
 
-Sell lottery at online
+Sell Myanmar lottery at online
